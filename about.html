@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - BCS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playwrite+IE:wght@100..400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="About.css">
+ <style>
+     .navbar {
+      background-color: rgba(15, 32, 54, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(201,168,76,0.25);
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar-brand { color: var(--gold) !important; font-weight: 700; font-size: 22px; letter-spacing: 1.5px; }
+    .navbar .fa-scale-balanced { color: var(--gold); font-size: 17px; }
+    .navbar .nav-link {
+      color: rgba(255,255,255,0.82) !important; font-size: 14px; font-weight: 500;
+      padding: 7px 14px !important; border-radius: 50px; transition: all 0.25s;
+    }
+    .navbar .nav-link:hover, .navbar .nav-link.active { background-color: var(--green-mid); color: var(--white) !important; }
+    .dropdown-menu { background-color: var(--dark); border: 1px solid rgba(201,168,76,0.2); border-radius: 10px; overflow: hidden; }
+    .dropdown-item { color: var(--gold-light); font-size: 14px; font-weight: 500; transition: 0.2s; }
+    .dropdown-item:hover { background-color: var(--green-mid); color: var(--white); }
+    .navbar .btn-success {
+      background-color: var(--green-mid); border-color: var(--green-mid); color: var(--white);
+      font-weight: 700; font-size: 13px; border-radius: 50px; padding: 7px 20px; transition: 0.25s;
+    }
+    .navbar .btn-success:hover { background-color: var(--green-dark); border-color: var(--green-dark); color: var(--white); }
+
+    .group { display: flex; align-items: center; position: relative; max-width: 210px; }
+    .group .icon { position: absolute; left: 12px; fill: rgba(255,255,255,0.45); width: 15px; height: 15px; pointer-events: none; }
+    .input {
+      width: 100%; height: 38px; padding: 0 14px 0 34px;
+      border: 1.5px solid transparent; border-radius: 50px;
+      background-color: rgba(255,255,255,0.1); color: var(--white); font-size: 13px; outline: none; transition: 0.3s;
+    }
+    .input::placeholder { color: rgba(255,255,255,0.4); }
+    .input:focus, .input:hover { border-color: var(--gold); background-color: rgba(255,255,255,0.15); box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
+    .navbar-toggler { border-color: rgba(201,168,76,0.35); }
+    .navbar-toggler-icon { filter: invert(1); }
+
+  </style>
+</head>
+<body>
+
+ <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid ms-4">
+            <div class="d-flex align-items-center gap-2">
+                <i style="color: #2563a8;font-size: 24px;" class="fa-solid fa-passport"></i>
+                <a class="navbar-brand" href="index.html">BCS   </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto gap-1">
+                    <li class="nav-item"><a class="nav-link  rounded-pill" href="index.html">Home</a></li>
+        
+                    <li class="nav-item"><a class="nav-link rounded-pill" href="index.html#moataz">Services</a></li>
+                    <li class="nav-item"><a class="nav-link rounded-pill " href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link rounded-pill active" href="about.html">About</a></li>
+                </ul>
+                <div class="d-flex align-items-center gap-3 mt-2 mt-lg-0 me-4">
+                    <div class="group">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                            <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"/>
+                        </svg>
+                        <input class="input" type="search" placeholder="Search Records">
+                    </div>
+                    <a href="#khaled" class="btn btn-success rounded-pill" id="navAuthArea">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+  <main>
+    <div class="Head">
+      <div class="container">
+        <h2>Project Story</h2>
+        <p class="p1">Managing border crossings isn't always straightforward. Every traveler who reaches
+          the checkpoint carries a passport to verify, a visa to check, and a record that has to be
+          weighed against the wanted list — all while the line keeps moving and every officer's
+          decision has to be fast, fair, and accurate.</p>
+        <h4 style="color: #708871; padding: 10px; text-align: center;">BCS was built to fix that.</h4>
+        <p class="p3">The idea started simple: put the officer at the center of the system. Each traveler
+          arrives with their own passport and visa, and the officer inspects both, checks the wanted
+          list, and decides — allow entry, reject it, or, when the evidence calls for it, arrest the
+          traveler. No guesswork, just a clear process behind every decision.</p>
+        <p class="p4">One of BCS's standout features is its document verification engine. Passports and
+          visas are checked for expiry and authenticity in real time, with built-in forgery detection
+          so a fake or altered document doesn't slip past the checkpoint.</p>
+        <p class="p5">But the heart of BCS is the officer's daily shift. The system generates travelers and
+          their documents, throws in the occasional emergency, scanner failure, diplomatic arrival, or
+          suspicious traveler to keep every day unpredictable, and tracks each officer's score based on
+          how well they read the situation.</p>
+        <p class="p6">Every decision is logged. BCS keeps a running record of operations and compiles it
+          into daily and final reports, so supervisors can see exactly how each shift went and where the
+          risks are highest — all built with simplicity as a core value, so anyone can open it and
+          immediately feel in control of border operations.</p>
+        <p class="p7">Because every crossing deserves to be safe, accurate, and accounted for.  </p>
+      </div>
+    </div>
+  </main>
+
+    <footer class="footer" id="mohammed">
+    <div class="footer-brand">BCS</div>
+    <p class="footer-tagline">Secure borders, seamless crossings.</p>
+    <div class="footer-socials">
+      <a href="https://twitter.com"  target="_blank" class="footer-social" id="f-twitter"><i class="bi bi-twitter"></i></a>
+      <a href="https://linkedin.com" target="_blank" class="footer-social" id="f-linkedin"><i class="bi bi-linkedin"></i></a>
+      <a href="https://youtube.com"  target="_blank" class="footer-social" id="f-youtube"><i class="bi bi-youtube"></i></a>
+      <a href="https://facebook.com" target="_blank" class="footer-social" id="f-facebook"><i class="bi bi-facebook"></i></a>
+    </div>
+    <div class="footer-divider"></div>
+    <p class="footer-copy">&copy; 2026 BCS · All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+  function checkUserLogin() {
+    const savedName = localStorage.getItem("userFirstName");
+    const navAuthArea = document.getElementById("navAuthArea");
+    if (!savedName || !navAuthArea) return;
+
+    navAuthArea.outerHTML = `
+        <div id="navAuthArea" style="
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Segoe UI', sans-serif;
+            white-space: nowrap;
+        ">
+            <span style="
+                background-color: #c9a84c;
+                color: #0f2036;
+                font-weight: 700;
+                font-size: 13px;
+                padding: 5px 14px;
+                border-radius: 50px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            ">
+                <i class="fa-solid fa-user" style="font-size: 11px;"></i>
+                ${savedName}
+            </span>
+            <button onclick="logoutUser()" style="
+                font-size: 12px;
+                font-weight: 600;
+                font-family: 'Segoe UI', sans-serif;
+                padding: 5px 12px;
+                border: 1px solid rgba(201,168,76,0.4);
+                border-radius: 50px;
+                color: rgba(255,255,255,0.75);
+                background: transparent;
+                cursor: pointer;
+            "
+            onmouseover="this.style.background='#e53e3e'; this.style.color='#fff'; this.style.borderColor='#e53e3e';"
+            onmouseout="this.style.background='transparent'; this.style.color='rgba(255,255,255,0.75)'; this.style.borderColor='rgba(201,168,76,0.4)';"
+            >Log out</button>
+        </div>
+    `;
+}
+
+function logoutUser() {
+    localStorage.removeItem("userFirstName");
+    localStorage.removeItem("salary");
+    window.location.reload();
+}
+
+document.addEventListener("DOMContentLoaded", checkUserLogin);
+    </script>
+</body>
+</html>

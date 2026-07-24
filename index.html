@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCS | Border Control System</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+IE:wght@100..400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="index.css">
+
+    <style>
+        .navbar {
+            background-color: rgba(15, 32, 54, 0.92) !important;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(201,168,76,0.25) !important;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar-brand { color: #c9a84c !important; font-weight: 700; font-size: 22px; letter-spacing: 1.5px; }
+        .navbar .fa-scale-balanced { color: #c9a84c; font-size: 17px; }
+        .navbar .nav-link {
+            color: rgba(255,255,255,0.82) !important;
+            font-size: 14px; font-weight: 500;
+            padding: 7px 14px !important;
+            border-radius: 50px; transition: all 0.25s;
+        }
+        .navbar .nav-link:hover, .navbar .nav-link.active {
+            background-color: #2563a8 !important; color: #ffffff !important;
+        }
+        .dropdown-menu {
+            background-color: #0f2036 !important;
+            border: 1px solid rgba(201,168,76,0.2) !important;
+            border-radius: 10px; overflow: hidden;
+        }
+        .dropdown-item { color: #e8d49a !important; font-size: 14px; font-weight: 500; transition: 0.2s; }
+        .dropdown-item:hover { background-color: #2563a8 !important; color: #ffffff !important; }
+        .navbar .btn-success {
+            background-color: #2563a8 !important; border-color: #2563a8 !important;
+            color: #ffffff !important; font-weight: 700; font-size: 13px;
+            border-radius: 50px; padding: 7px 20px; transition: 0.25s;
+        }
+        .navbar .btn-success:hover {
+            background-color: #14335c !important; border-color: #14335c !important; color: #ffffff !important;
+        }
+        .group { display: flex; align-items: center; position: relative; max-width: 210px; }
+        .group .icon { position: absolute; left: 12px; fill: rgba(255,255,255,0.45); width: 15px; height: 15px; pointer-events: none; }
+        .input {
+            width: 100%; height: 38px; padding: 0 14px 0 34px;
+            border: 1.5px solid transparent; border-radius: 50px;
+            background-color: rgba(255,255,255,0.1); color: #ffffff;
+            font-size: 13px; outline: none; transition: 0.3s; margin: 0 !important;
+        }
+        .input::placeholder { color: rgba(255,255,255,0.4); }
+        .input:focus, .input:hover {
+            border-color: #c9a84c; background-color: rgba(255,255,255,0.15);
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+        }
+        .navbar-toggler { border-color: rgba(201,168,76,0.35) !important; }
+        .navbar-toggler-icon { filter: invert(1); }
+
+        /* ── SIGN UP FORM ── */
+        .Sign_Up {
+            background: #f2f6fa;
+            padding: 40px 36px;
+            border-radius: 16px;
+            border: 1px solid rgba(37,99,168,0.15);
+            color: #0f2036;
+            max-width: 620px;
+            margin: 0 auto;
+            box-shadow: 0 20px 50px rgba(15,32,54,0.12);
+        }
+        .Sign_Up .su-eyebrow {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #2563a8;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .Sign_Up h3 {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            color: #0f2036;
+            margin-bottom: 4px;
+        }
+        .Sign_Up .su-sub {
+            text-align: center;
+            font-size: 13px;
+            color: #4a6f8f;
+            margin-bottom: 26px;
+        }
+
+        .Sign_Up form { display: flex; flex-direction: column; gap: 16px; }
+
+        .su-row { display: flex; gap: 14px; width: 100%; max-width: 500px; margin: 0 auto; }
+        .su-row .form-group-wrap { flex: 1; }
+
+        .form-group-wrap {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 6px;
+        }
+        .form-group-wrap label {
+            font-size: 10.5px;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            color: #2563a8;
+            font-weight: 700;
+        }
+        .su-field-wrap { position: relative; }
+        .su-field-wrap i.su-field-icon {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7ea3c4;
+            font-size: 13px;
+            pointer-events: none;
+        }
+
+        .Sign_Up input, .Sign_Up select {
+            width: 100% !important;
+            padding: 11px 14px 11px 38px;
+            border: 1.5px solid #a9c9e8;
+            border-radius: 9px;
+            font-size: 14px;
+            font-family: inherit;
+            background-color: #fff;
+            color: #0f2036;
+            outline: none;
+            transition: all 0.2s;
+            margin: 0 !important;
+        }
+        .Sign_Up select { padding-left: 38px; appearance: none; -webkit-appearance: none; }
+        .su-field-wrap.select-wrap::after {
+            content: "\f078";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 11px;
+            color: #7ea3c4;
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        .Sign_Up input::placeholder { color: #9db9d1; }
+        .Sign_Up input:focus, .Sign_Up select:focus {
+            border-color: #2563a8; box-shadow: 0 0 0 3px rgba(37,99,168,0.12);
+        }
+        .Sign_Up button[type="submit"] {
+            width: 100%; max-width: 500px; margin: 6px auto 0;
+            background-color: #14335c; color: #ffffff; border: none;
+            padding: 13px; border-radius: 9px; font-weight: 700; font-size: 14px;
+            cursor: pointer; transition: 0.25s; display: flex;
+            align-items: center; justify-content: center; gap: 8px;
+        }
+        .Sign_Up button[type="submit"]:hover { background-color: #2563a8; }
+        .Sign_Up .su-note {
+            text-align: center; font-size: 11.5px; color: #7ea3c4; margin-top: -4px;
+        }
+        .Sign_Up input.is-invalid, .Sign_Up select.is-invalid {
+            border-color: #fc8181 !important; background-color: #fff5f5 !important;
+        }
+        .Sign_Up input.is-valid, .Sign_Up select.is-valid {
+            border-color: #68d391 !important; background-color: #f0fff4 !important;
+        }
+        .field-error {
+            font-size: 12px; color: #e53e3e; margin-top: 4px;
+            font-weight: 500; display: flex; align-items: center; gap: 4px;
+        }
+        @media (max-width: 560px) {
+            .Sign_Up { padding: 28px 20px; }
+            .su-row { flex-direction: column; gap: 16px; }
+        }
+
+        .saconde { background-color: transparent !important; }
+
+        .hiw-section {
+            background: #ffffff;
+            padding: 60px 24px 48px;
+            font-family: Arial, Helvetica, sans-serif;
+            border-top: 1px solid rgba(37,99,168,0.12);
+            border-bottom: 1px solid rgba(37,99,168,0.12);
+        }
+        .hiw-eyebrow {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #2563a8;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .hiw-title {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 700;
+            color: #0f2036;
+            margin-bottom: 6px;
+        }
+        .hiw-sub {
+            text-align: center;
+            font-size: 14px;
+            color: #4a6f8f;
+            margin-bottom: 48px;
+        }
+
+        .hiw-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            position: relative;
+        }
+        @media (max-width: 991px) {
+            .hiw-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 575px) {
+            .hiw-grid { grid-template-columns: 1fr; }
+            .hiw-title { font-size: 20px; }
+        }
+
+        .hiw-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 28px 16px 24px;
+            background: #f2f6fa;
+            border: 1px solid rgba(37,99,168,0.15);
+            border-radius: 14px;
+            position: relative;
+            opacity: 0;
+            transition: border-color 0.25s;
+        }
+        .hiw-step:hover { border-color: #2563a8; }
+        .hiw-step.visible { animation: fadeUpStep 0.55s ease forwards; }
+        .hiw-step:nth-child(1).visible { animation-delay: 0s; }
+        .hiw-step:nth-child(2).visible { animation-delay: 0.15s; }
+        .hiw-step:nth-child(3).visible { animation-delay: 0.3s; }
+        .hiw-step:nth-child(4).visible { animation-delay: 0.45s; }
+
+        @keyframes fadeUpStep {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .hiw-icon-wrap {
+            width: 64px; height: 64px; border-radius: 50%;
+            background: rgba(15,32,54,0.07);
+            border: 1.5px solid rgba(37,99,168,0.3);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; color: #14335c;
+            margin-bottom: 16px; position: relative; flex-shrink: 0;
+        }
+        .hiw-step-num {
+            position: absolute; top: -7px; right: -7px;
+            width: 22px; height: 22px; border-radius: 50%;
+            background: #14335c; color: #c9a84c;
+            font-size: 11px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .hiw-step-title {
+            font-size: 15px; font-weight: 700; color: #0f2036;
+            margin-bottom: 8px; line-height: 1.3;
+        }
+        .hiw-step-desc { font-size: 13px; color: #4a6f8f; line-height: 1.65; }
+
+        .hiw-cta-wrap { text-align: center; margin-top: 40px; }
+        .hiw-cta {
+            display: inline-block; background: #14335c; color: #ffffff;
+            font-size: 14px; font-weight: 700; padding: 12px 36px;
+            border-radius: 50px; text-decoration: none;
+            transition: background 0.2s; border: none; cursor: pointer;
+        }
+        .hiw-cta:hover { background: #2563a8; color: #fff; }
+
+        .hiw-checks {
+            display: flex; justify-content: center;
+            gap: 24px; margin-top: 16px; flex-wrap: wrap;
+        }
+        .hiw-check-item {
+            display: flex; align-items: center;
+            gap: 6px; font-size: 12.5px; color: #4a6f8f;
+        }
+        .hiw-check-item i { color: #2563a8; }
+
+        /* ── SERVICES SECTION background ── */
+        .services-section {
+            background: #0f2036;
+            padding: 48px 0 40px;
+        }
+        .services-section .our {
+            color: #c9a84c !important;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 32px;
+        }
+        .services-section .one h5 { color: #ffffff; font-weight: 700; }
+        .services-section .one p  { color: rgba(255,255,255,0.6); font-size: 14px; line-height: 1.65; }
+        .services-section .one {
+            padding: 24px 20px;
+            border: 1px solid rgba(201,168,76,0.15);
+            border-radius: 12px;
+            transition: border-color 0.2s;
+        }
+        .services-section .one:hover { border-color: rgba(201,168,76,0.45); }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid ms-4">
+            <div class="d-flex align-items-center gap-2">
+                <i style="color: #2563a8;font-size: 24px;" class="fa-solid fa-passport"></i>
+                <a class="navbar-brand" href="index.html">BCS   </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto gap-1">
+                    <li class="nav-item"><a class="nav-link active rounded-pill" href="index.html">Home</a></li>
+                  
+                    <li class="nav-item"><a class="nav-link rounded-pill" href="#moataz">Services</a></li>
+                    <li class="nav-item"><a class="nav-link rounded-pill" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link rounded-pill" href="about.html">ِAbout</a></li>
+                </ul>
+                <div class="d-flex align-items-center gap-3 mt-2 mt-lg-0 me-4">
+                    <div class="group">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                            <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"/>
+                        </svg>
+                        <input class="input" type="search" placeholder="Search Records">
+                    </div>
+                    <a href="#khaled" class="btn btn-success rounded-pill" id="navAuthArea">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="headertwo text-center">
+        <h1 style="font-family: 'Playwrite IE', cursive; font-weight: bold; letter-spacing:4px;">Border Control System</h1>
+        <h3 style="font-family:Arial, Helvetica, sans-serif">
+            <hr style="height: 2px;">
+            <span style="color: #14335c;">Secure And Efficient</span><br>
+            <span style="color: #2563a8; font-weight: bold;">Border Management</span>
+        </h3>
+        <div class="d-flex justify-content-center gap-3 mt-4" id="headerAuthArea">
+            <a href="#khaled" class="btn btn-success rounded-pill px-4">Sign up</a>
+            <a href="About.html" class="btn btn-outline-dark rounded-pill px-4 text-light">Learn More</a>
+        </div>
+        <div class="banner-stats">
+            
+            <div class="stat"><span class="stat-num">+50</span><span class="stat-label">Checkpoints Nationwide</span></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span class="stat-num">+10K</span><span class="stat-label">Travelers Processed</span></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span class="stat-num">99%</span><span class="stat-label">Accuracy</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="hiw-section">
+    <div class="container">
+        <p class="hiw-eyebrow">How it works</p>
+        <h2 class="hiw-title">Start in under 2 minutes</h2>
+        <p class="hiw-sub">No queues. No paperwork. Just secure, seamless border crossings.</p>
+
+        <div class="hiw-grid">
+            <div class="hiw-step">
+                <div class="hiw-icon-wrap">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span class="hiw-step-num">1</span>
+                </div>
+                <div class="hiw-step-title">Register your profile</div>
+                <p class="hiw-step-desc">Enter your name and email — done in seconds.</p>
+            </div>
+            <div class="hiw-step">
+                <div class="hiw-icon-wrap">
+                    <i class="fa-solid fa-coins"></i>
+                    <span class="hiw-step-num">2</span>
+                </div>
+                <div class="hiw-step-title">Sign in to your dashboard</div>
+                <p class="hiw-step-desc">Access your officer dashboard to begin your shift.</p>
+            </div>
+            <div class="hiw-step">
+                <div class="hiw-icon-wrap">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span class="hiw-step-num">3</span>
+                </div>
+                <div class="hiw-step-title">Process your crossing</div>
+                <p class="hiw-step-desc">Log entries, monitor visa status, and check watchlist alerts — all in one dashboard.</p>
+            </div>
+            <div class="hiw-step">
+                <div class="hiw-icon-wrap">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                    <span class="hiw-step-num">4</span>
+                </div>
+                <div class="hiw-step-title">Cross with confidence</div>
+                <p class="hiw-step-desc">Every crossing fast, secure, and fully documented — every time.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══ SERVICES ══ -->
+<section class="services-section" id="moataz">
+    <div class="container">
+        <p class="our text-center">Our Services</p>
+        <div class="row text-center g-4">
+            <div class="one col-md-4 col-12 mb-4">
+                <h5>Passport Verification</h5>
+                <p>Instantly verify passport authenticity and validity at any checkpoint, in an easy way.</p>
+            </div>
+            <div class="one col-md-4 col-12 mb-4">
+                <h5>Visa Status Tracker</h5>
+                <p>A visa status tracker that logs applications, tracks approvals vs. what's pending, and visualizes progress — all in one place.</p>
+            </div>
+            <div class="one col-md-4 col-12 mb-4">
+                <h5>Entry &amp; Exit Records</h5>
+                <p>A digital crossing log that records every entry and exit, sorts it by checkpoint, and visualizes it in a chart — all in one place.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ SIGN UP / LOGIN ══ -->
+<div class="saconde">
+    <div class="projecr-idea">
+        <div class="container">
+            <div class="Sign_Up mt-5 mb-5" id="khaled">
+
+                <!-- SIGN UP PANEL -->
+                <div id="signupPanel">
+                    <p class="su-eyebrow">Join BCS</p>
+                    <h3>Create your officer account</h3>
+                    <p class="su-sub">Register in under a minute — sign in to your dashboard right away.</p>
+                    <form id="signupForm" novalidate>
+                        <div class="su-row">
+                            <div class="form-group-wrap">
+                                <label for="firstName">First Name</label>
+                                <div class="su-field-wrap">
+                                    <i class="fa-regular fa-user su-field-icon"></i>
+                                    <input type="text" id="firstName" placeholder="e.g. Ahmed">
+                                </div>
+                            </div>
+                            <div class="form-group-wrap">
+                                <label for="lastName">Last Name</label>
+                                <div class="su-field-wrap">
+                                    <i class="fa-regular fa-user su-field-icon"></i>
+                                    <input type="text" id="lastName" placeholder="e.g. Hassan">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="su-row">
+                            <div class="form-group-wrap">
+                                <label for="email">Email</label>
+                                <div class="su-field-wrap">
+                                    <i class="fa-regular fa-envelope su-field-icon"></i>
+                                    <input type="email" id="email" placeholder="you@gmail.com">
+                                </div>
+                            </div>
+                            <div class="form-group-wrap">
+                                <label for="employeeId">Employee ID</label>
+                                <div class="su-field-wrap">
+                                    <i class="fa-solid fa-id-badge su-field-icon"></i>
+                                    <input type="text" id="employeeId" placeholder="e.g. EMP-1042">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit">Register</button>
+                        </div>
+                        <p class="su-note">Already have an account? <a href="#" id="showLoginLink">Log in</a></p>
+                    </form>
+                </div>
+
+                <!-- LOGIN PANEL -->
+                <div id="loginPanel" style="display:none;">
+                    <p class="su-eyebrow">Welcome back</p>
+                    <h3>Log in to your dashboard</h3>
+                    <p class="su-sub">Enter your Employee ID and email to continue.</p>
+                    <form id="loginForm" novalidate>
+                        <div class="form-group-wrap">
+                            <label for="loginEmployeeId">Employee ID</label>
+                            <div class="su-field-wrap">
+                                <i class="fa-solid fa-id-badge su-field-icon"></i>
+                                <input type="text" id="loginEmployeeId" placeholder="e.g. EMP-1042">
+                            </div>
+                        </div>
+                        <div class="form-group-wrap">
+                            <label for="loginEmail">Email</label>
+                            <div class="su-field-wrap">
+                                <i class="fa-regular fa-envelope su-field-icon"></i>
+                                <input type="email" id="loginEmail" placeholder="you@gmail.com">
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit">Log In</button>
+                        </div>
+                        <p class="su-note">New here? <a href="#" id="showSignupLink">Create an account</a></p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-brand">BCS</div>
+    <p class="footer-tagline">Secure borders, seamless crossings.</p>
+    <div class="footer-socials">
+        <a href="https://twitter.com"  target="_blank" class="footer-social" id="f-twitter"><i class="bi bi-twitter"></i></a>
+        <a href="https://linkedin.com" target="_blank" class="footer-social" id="f-linkedin"><i class="bi bi-linkedin"></i></a>
+        <a href="https://youtube.com"  target="_blank" class="footer-social" id="f-youtube"><i class="bi bi-youtube"></i></a>
+        <a href="https://facebook.com" target="_blank" class="footer-social" id="f-facebook"><i class="bi bi-facebook"></i></a>
+    </div>
+    <div class="footer-divider"></div>
+    <p class="footer-copy">&copy; 2026 BCS · All rights reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const stepEls = document.querySelectorAll('.hiw-step');
+const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+stepEls.forEach(el => obs.observe(el));
+
+const rules = {
+    firstName:  { required: true, minLen: 2,  label: 'First name' },
+    lastName:   { required: true, minLen: 2,  label: 'Last name' },
+    email:      { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, label: 'Email' },
+    employeeId: { required: true, minLen: 3,  label: 'Employee ID' }
+};
+
+function getFieldError(id, value) {
+    const r = rules[id]; if (!r) return null;
+    const v = value.trim();
+    if (r.required && !v)                return `${r.label} is required.`;
+    if (r.minLen && v.length < r.minLen) return `${r.label} must be at least ${r.minLen} characters.`;
+    if (r.pattern && !r.pattern.test(v)) {
+        if (id === 'email')   return 'Please enter a valid email address.';
+        return `Please enter a valid ${r.label.toLowerCase()}.`;
+    }
+    return null;
+}
+
+function setFieldState(input, errorMsg) {
+    const wrap = input.closest('.form-group-wrap');
+    if (!wrap) return true;
+    const old = wrap.querySelector('.field-error');
+    if (old) old.remove();
+    input.classList.remove('is-invalid', 'is-valid');
+    if (errorMsg) {
+        input.classList.add('is-invalid');
+        const el = document.createElement('span');
+        el.className = 'field-error';
+        el.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${errorMsg}`;
+        wrap.appendChild(el);
+        return false;
+    }
+    input.classList.add('is-valid');
+    return true;
+}
+
+Object.keys(rules).forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.addEventListener('blur',  () => setFieldState(input, getFieldError(id, input.value)));
+    input.addEventListener('input', () => {
+        if (input.classList.contains('is-invalid'))
+            setFieldState(input, getFieldError(id, input.value));
+    });
+});
+
+function checkUserLogin() {
+    const storedData = localStorage.getItem("userData");
+    if (!storedData) return;
+    const user = JSON.parse(storedData);
+    const savedName = user.firstName;
+    const navAuthArea = document.getElementById("navAuthArea");
+    const headerAuth  = document.getElementById("headerAuthArea");
+    if (navAuthArea) {
+        navAuthArea.outerHTML = `
+            <div id="navAuthArea" style="display:flex;align-items:center;gap:8px;white-space:nowrap;">
+                <span style="background:#c9a84c;color:#0f2036;font-weight:700;font-size:13px;padding:5px 14px;border-radius:50px;display:flex;align-items:center;gap:6px;">
+                    <i class="fa-solid fa-user" style="font-size:11px;"></i>${savedName}
+                </span>
+                <button onclick="logoutUser()" style="font-size:12px;font-weight:600;font-family:'Segoe UI',sans-serif;padding:5px 12px;border:1px solid rgba(201,168,76,0.4);border-radius:50px;color:rgba(255,255,255,0.75);background:transparent;cursor:pointer;"
+                    onmouseover="this.style.background='#e53e3e';this.style.color='#fff';this.style.borderColor='#e53e3e';"
+                    onmouseout="this.style.background='transparent';this.style.color='rgba(255,255,255,0.75)';this.style.borderColor='rgba(201,168,76,0.4)';"
+                >Log out</button>
+            </div>`;
+    }
+    if (headerAuth) {
+        headerAuth.innerHTML = `
+            <span class="text-light fs-4 fw-medium">Welcome back, <span style="color:#c9a84c;">${savedName}</span>!</span>
+            <a href="Dashoboard.html" class="btn btn-success rounded-pill px-4">Go to Dashboard</a>
+        `;
+    }
+
+    // Hide the Sign Up section once the user is already registered/logged in
+    const signUpWrapper = document.querySelector(".saconde");
+    if (signUpWrapper) signUpWrapper.style.display = "none";
+}
+
+function logoutUser() {
+    localStorage.removeItem("userData");
+    localStorage.removeItem("userFirstName");
+    window.location.reload();
+}
+
+function showSuccessOverlay(name, callback) {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `position:fixed;inset:0;z-index:9999;background:rgba(15,32,54,0.92);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);animation:fadeInOverlay 0.4s ease;`;
+    overlay.innerHTML = `
+        <style>
+            @keyframes fadeInOverlay { from{opacity:0} to{opacity:1} }
+            @keyframes popIn { from{transform:scale(0.7);opacity:0} to{transform:scale(1);opacity:1} }
+            @keyframes checkDraw { from{stroke-dashoffset:60} to{stroke-dashoffset:0} }
+            @keyframes countDown { from{width:100%} to{width:0%} }
+        </style>
+        <div style="background:#f2f6fa;border-radius:20px;padding:48px 56px;text-align:center;max-width:400px;width:90%;animation:popIn 0.45s cubic-bezier(0.34,1.56,0.64,1) 0.1s both;position:relative;overflow:hidden;">
+            <div style="width:80px;height:80px;border-radius:50%;background:#14335c;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M10 20 L17 27 L30 13" stroke="#c9a84c" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="60" stroke-dashoffset="60" style="animation:checkDraw 0.5s ease 0.4s forwards;"/>
+                </svg>
+            </div>
+            <h3 style="font-family:Arial,sans-serif;color:#14335c;font-size:22px;font-weight:700;margin-bottom:8px;">Welcome, ${name}!</h3>
+            <p style="color:#4a6f8f;font-size:14px;margin-bottom:24px;">Your account has been created successfully.<br>Redirecting to your dashboard…</p>
+            <div style="height:4px;background:#d6e4ef;border-radius:2px;overflow:hidden;">
+                <div style="height:100%;background:#c9a84c;border-radius:2px;animation:countDown 2.5s linear forwards;"></div>
+            </div>
+        </div>`;
+    document.body.appendChild(overlay);
+    setTimeout(callback, 2500);
+}
+
+function saveAccount(account) {
+    let accounts = [];
+    try { accounts = JSON.parse(localStorage.getItem('bcsAccounts')) || []; } catch (e) { accounts = []; }
+    accounts = accounts.filter(a => a.employeeId !== account.employeeId);
+    accounts.push(account);
+    localStorage.setItem('bcsAccounts', JSON.stringify(accounts));
+}
+
+function findAccount(employeeId, email) {
+    let accounts = [];
+    try { accounts = JSON.parse(localStorage.getItem('bcsAccounts')) || []; } catch (e) { accounts = []; }
+    return accounts.find(a =>
+        a.employeeId.trim().toLowerCase() === employeeId.trim().toLowerCase() &&
+        a.email.trim().toLowerCase() === email.trim().toLowerCase()
+    ) || null;
+}
+
+document.getElementById('signupForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    let isFormValid = true;
+    Object.keys(rules).forEach(id => {
+        const input = document.getElementById(id);
+        if (input && !setFieldState(input, getFieldError(id, input.value))) isFormValid = false;
+    });
+    if (!isFormValid) return;
+    const firstName   = document.getElementById("firstName").value.trim();
+    const lastName    = document.getElementById("lastName").value.trim();
+    const email       = document.getElementById("email").value.trim();
+    const employeeId  = document.getElementById("employeeId").value.trim();
+    const userData    = { firstName, lastName, fullName: `${firstName} ${lastName}`, email, employeeId };
+    saveAccount(userData);
+    localStorage.setItem("userData", JSON.stringify(userData));
+    localStorage.setItem("userFirstName", firstName);
+    showSuccessOverlay(firstName, function () {
+        window.location.href = "Dashoboard.html";
+    });
+});
+
+document.getElementById('loginForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    const idInput = document.getElementById('loginEmployeeId');
+    const emailInput = document.getElementById('loginEmail');
+    const employeeId = idInput.value.trim();
+    const email = emailInput.value.trim();
+
+    [idInput, emailInput].forEach(el => { el.classList.remove('is-invalid'); const w = el.closest('.form-group-wrap'); const old = w && w.querySelector('.field-error'); if (old) old.remove(); });
+
+    if (!employeeId || !email) {
+        const target = !employeeId ? idInput : emailInput;
+        const wrap = target.closest('.form-group-wrap');
+        target.classList.add('is-invalid');
+        const el = document.createElement('span');
+        el.className = 'field-error';
+        el.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Employee ID and email are required.';
+        wrap.appendChild(el);
+        return;
+    }
+
+    const account = findAccount(employeeId, email);
+    if (!account) {
+        const wrap = emailInput.closest('.form-group-wrap');
+        emailInput.classList.add('is-invalid');
+        const el = document.createElement('span');
+        el.className = 'field-error';
+        el.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> No account matches that Employee ID and email.';
+        wrap.appendChild(el);
+        return;
+    }
+
+    localStorage.setItem('userData', JSON.stringify(account));
+    localStorage.setItem('userFirstName', account.firstName);
+    showSuccessOverlay(account.firstName, function () {
+        window.location.href = "Dashoboard.html";
+    });
+});
+
+document.getElementById('showLoginLink').addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('signupPanel').style.display = 'none';
+    document.getElementById('loginPanel').style.display = 'block';
+});
+
+document.getElementById('showSignupLink').addEventListener('click', function (e) {
+    e.preventDefault();
+    document.getElementById('loginPanel').style.display = 'none';
+    document.getElementById('signupPanel').style.display = 'block';
+});
+
+document.addEventListener("DOMContentLoaded", checkUserLogin);
+</script>
+</body>
+</html>
