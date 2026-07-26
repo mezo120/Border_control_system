@@ -339,6 +339,17 @@ button:active {
             .bottom-nav-item i { font-size: 17px; }
             .bottom-nav-item.active { color: var(--gold); border-top-color: var(--gold); }
         }
+        @media (max-width: 480px) {
+            .panel { padding: 16px; }
+            .welcome-section h1 { font-size: 18px; }
+            .day-badge { width: 46px; height: 46px; font-size: 15px; }
+            .btn-main, .btn-outline { width: 100%; text-align: center; }
+            .day-card > div[style] { width: 100%; }
+            .decision-row button { min-width: 100%; }
+            .wizard-step .lbl { display: none; }
+            .wizard-connector { min-width: 8px; }
+            .stat-mini { min-width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -346,9 +357,13 @@ button:active {
   <nav class="navbar navbar-expand-lg">
         <div class="container-fluid ms-4">
             <div class="d-flex align-items-center gap-2">
+                <button class="sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
                 <i style="color: #2563a8;font-size: 24px;" class="fa-solid fa-passport"></i>
                 <a class="navbar-brand" href="index.html">BCS   </a>
             </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto gap-1">
                     <li class="nav-item"><a class="nav-link  rounded-pill" href="index.html">Home</a></li>
@@ -687,7 +702,7 @@ function switchPageMobile(pageId) { switchPage(pageId); }
 function logoutUser() {
     localStorage.removeItem('userData');
     localStorage.removeItem('userFirstName');
-    window.location.href = '../index.html';
+    window.location.href = 'index.html';
 }
 function handleLogout() { logoutUser(); }
 
