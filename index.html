@@ -180,6 +180,10 @@
             font-size: 12px; color: #e53e3e; margin-top: 4px;
             font-weight: 500; display: flex; align-items: center; gap: 4px;
         }
+        .su-field-wrap .toggle-pass {
+            position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
+            color: #7ea3c4; font-size: 13px; cursor: pointer; background: none; border: none; padding: 0;
+        }
         @media (max-width: 560px) {
             .Sign_Up { padding: 28px 20px; }
             .su-row { flex-direction: column; gap: 16px; }
@@ -317,6 +321,25 @@
             transition: border-color 0.2s;
         }
         .services-section .one:hover { border-color: rgba(201,168,76,0.45); }
+
+        /* ── RESPONSIVE FIXES ── */
+        @media (max-width: 991px) {
+            .navbar-collapse { margin-top: 14px; }
+            .navbar-nav { margin: 0 0 12px 0 !important; }
+            .navbar .d-flex.align-items-center.gap-3 { flex-wrap: wrap; gap: 12px !important; }
+            .group { max-width: 100%; }
+            .headertwo h1 { font-size: 34px; }
+        }
+        @media (max-width: 767px) {
+            .headertwo h1 { font-size: 26px; letter-spacing: 2px !important; }
+            .banner-stats { flex-direction: column; gap: 14px; }
+            .stat-divider { display: none; }
+        }
+        @media (max-width: 575px) {
+            .headertwo h1 { font-size: 21px; }
+            .headertwo .btn { width: 100%; }
+            .headertwo .d-flex.justify-content-center.gap-3 { flex-direction: column; }
+        }
     </style>
 </head>
 
@@ -329,6 +352,9 @@
                 <i style="color: #2563a8;font-size: 24px;" class="fa-solid fa-passport"></i>
                 <a class="navbar-brand" href="index.html">BCS   </a>
             </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto gap-1">
                     <li class="nav-item"><a class="nav-link active rounded-pill" href="index.html">Home</a></li>
@@ -484,6 +510,25 @@
                             </div>
                         </div>
 
+                        <div class="su-row">
+                            <div class="form-group-wrap">
+                                <label for="password">Password</label>
+                                <div class="su-field-wrap">
+                                    <i class="fa-solid fa-lock su-field-icon"></i>
+                                    <input type="password" id="password" placeholder="At least 6 characters">
+                                    <button type="button" class="toggle-pass" data-target="password"><i class="fa-solid fa-eye"></i></button>
+                                </div>
+                            </div>
+                            <div class="form-group-wrap">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <div class="su-field-wrap">
+                                    <i class="fa-solid fa-lock su-field-icon"></i>
+                                    <input type="password" id="confirmPassword" placeholder="Re-enter password">
+                                    <button type="button" class="toggle-pass" data-target="confirmPassword"><i class="fa-solid fa-eye"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="text-center">
                             <button type="submit">Register</button>
                         </div>
@@ -495,7 +540,7 @@
                 <div id="loginPanel" style="display:none;">
                     <p class="su-eyebrow">Welcome back</p>
                     <h3>Log in to your dashboard</h3>
-                    <p class="su-sub">Enter your Employee ID and email to continue.</p>
+                    <p class="su-sub">Enter your Employee ID and password to continue.</p>
                     <form id="loginForm" novalidate>
                         <div class="form-group-wrap">
                             <label for="loginEmployeeId">Employee ID</label>
@@ -505,10 +550,11 @@
                             </div>
                         </div>
                         <div class="form-group-wrap">
-                            <label for="loginEmail">Email</label>
+                            <label for="loginPassword">Password</label>
                             <div class="su-field-wrap">
-                                <i class="fa-regular fa-envelope su-field-icon"></i>
-                                <input type="email" id="loginEmail" placeholder="you@gmail.com">
+                                <i class="fa-solid fa-lock su-field-icon"></i>
+                                <input type="password" id="loginPassword" placeholder="Your password">
+                                <button type="button" class="toggle-pass" data-target="loginPassword"><i class="fa-solid fa-eye"></i></button>
                             </div>
                         </div>
 
@@ -545,11 +591,25 @@ const obs = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 stepEls.forEach(el => obs.observe(el));
 
+// Simple non-cryptographic hash so we don't store plain-text passwords in localStorage.
+// NOTE: this is only meant for this front-end demo. A real system must hash
+// passwords (e.g. bcrypt) on a real backend/server, never in client-side JS.
+function hashPassword(pw) {
+    let hash = 0;
+    for (let i = 0; i < pw.length; i++) {
+        hash = (hash << 5) - hash + pw.charCodeAt(i);
+        hash |= 0;
+    }
+    return 'h' + hash.toString(36);
+}
+
 const rules = {
-    firstName:  { required: true, minLen: 2,  label: 'First name' },
-    lastName:   { required: true, minLen: 2,  label: 'Last name' },
-    email:      { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, label: 'Email' },
-    employeeId: { required: true, minLen: 3,  label: 'Employee ID' }
+    firstName:       { required: true, minLen: 2,  label: 'First name' },
+    lastName:        { required: true, minLen: 2,  label: 'Last name' },
+    email:           { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, label: 'Email' },
+    employeeId:      { required: true, minLen: 3,  label: 'Employee ID' },
+    password:        { required: true, minLen: 6,  label: 'Password' },
+    confirmPassword: { required: true, minLen: 6,  label: 'Confirm password' }
 };
 
 function getFieldError(id, value) {
@@ -560,6 +620,10 @@ function getFieldError(id, value) {
     if (r.pattern && !r.pattern.test(v)) {
         if (id === 'email')   return 'Please enter a valid email address.';
         return `Please enter a valid ${r.label.toLowerCase()}.`;
+    }
+    if (id === 'confirmPassword') {
+        const pwEl = document.getElementById('password');
+        if (pwEl && v !== pwEl.value.trim()) return 'Passwords do not match.';
     }
     return null;
 }
@@ -589,6 +653,22 @@ Object.keys(rules).forEach(id => {
     input.addEventListener('input', () => {
         if (input.classList.contains('is-invalid'))
             setFieldState(input, getFieldError(id, input.value));
+    });
+});
+
+// Show/hide password toggle buttons
+document.querySelectorAll('.toggle-pass').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const target = document.getElementById(btn.dataset.target);
+        const icon = btn.querySelector('i');
+        if (!target) return;
+        if (target.type === 'password') {
+            target.type = 'text';
+            icon.classList.remove('fa-eye'); icon.classList.add('fa-eye-slash');
+        } else {
+            target.type = 'password';
+            icon.classList.remove('fa-eye-slash'); icon.classList.add('fa-eye');
+        }
     });
 });
 
@@ -658,18 +738,27 @@ function showSuccessOverlay(name, callback) {
 function saveAccount(account) {
     let accounts = [];
     try { accounts = JSON.parse(localStorage.getItem('bcsAccounts')) || []; } catch (e) { accounts = []; }
-    accounts = accounts.filter(a => a.employeeId !== account.employeeId);
+    accounts = accounts.filter(a => a.employeeId.toLowerCase() !== account.employeeId.toLowerCase());
     accounts.push(account);
     localStorage.setItem('bcsAccounts', JSON.stringify(accounts));
 }
 
-function findAccount(employeeId, email) {
+function findAccountById(employeeId) {
     let accounts = [];
     try { accounts = JSON.parse(localStorage.getItem('bcsAccounts')) || []; } catch (e) { accounts = []; }
-    return accounts.find(a =>
-        a.employeeId.trim().toLowerCase() === employeeId.trim().toLowerCase() &&
-        a.email.trim().toLowerCase() === email.trim().toLowerCase()
-    ) || null;
+    return accounts.find(a => a.employeeId.trim().toLowerCase() === employeeId.trim().toLowerCase()) || null;
+}
+
+function showError(inputEl, message) {
+    const wrap = inputEl.closest('.form-group-wrap');
+    if (!wrap) return;
+    inputEl.classList.add('is-invalid');
+    const old = wrap.querySelector('.field-error');
+    if (old) old.remove();
+    const el = document.createElement('span');
+    el.className = 'field-error';
+    el.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${message}`;
+    wrap.appendChild(el);
 }
 
 document.getElementById('signupForm').addEventListener('submit', function (event) {
@@ -680,13 +769,29 @@ document.getElementById('signupForm').addEventListener('submit', function (event
         if (input && !setFieldState(input, getFieldError(id, input.value))) isFormValid = false;
     });
     if (!isFormValid) return;
+
+    const employeeIdEl = document.getElementById("employeeId");
+    const employeeId = employeeIdEl.value.trim();
+
+    if (findAccountById(employeeId)) {
+        showError(employeeIdEl, 'This Employee ID is already registered. Try logging in instead.');
+        return;
+    }
+
     const firstName   = document.getElementById("firstName").value.trim();
     const lastName    = document.getElementById("lastName").value.trim();
     const email       = document.getElementById("email").value.trim();
-    const employeeId  = document.getElementById("employeeId").value.trim();
-    const userData    = { firstName, lastName, fullName: `${firstName} ${lastName}`, email, employeeId };
+    const password    = document.getElementById("password").value;
+
+    const userData = {
+        firstName, lastName, fullName: `${firstName} ${lastName}`,
+        email, employeeId, passwordHash: hashPassword(password)
+    };
     saveAccount(userData);
-    localStorage.setItem("userData", JSON.stringify(userData));
+
+    // Never keep the plain password or hash in the "current session" record.
+    const sessionData = { firstName, lastName, fullName: userData.fullName, email, employeeId };
+    localStorage.setItem("userData", JSON.stringify(sessionData));
     localStorage.setItem("userFirstName", firstName);
     showSuccessOverlay(firstName, function () {
         window.location.href = "Dashoboard.html";
@@ -696,35 +801,35 @@ document.getElementById('signupForm').addEventListener('submit', function (event
 document.getElementById('loginForm').addEventListener('submit', function (event) {
     event.preventDefault();
     const idInput = document.getElementById('loginEmployeeId');
-    const emailInput = document.getElementById('loginEmail');
+    const passInput = document.getElementById('loginPassword');
     const employeeId = idInput.value.trim();
-    const email = emailInput.value.trim();
+    const password = passInput.value;
 
-    [idInput, emailInput].forEach(el => { el.classList.remove('is-invalid'); const w = el.closest('.form-group-wrap'); const old = w && w.querySelector('.field-error'); if (old) old.remove(); });
+    [idInput, passInput].forEach(el => {
+        el.classList.remove('is-invalid');
+        const w = el.closest('.form-group-wrap');
+        const old = w && w.querySelector('.field-error');
+        if (old) old.remove();
+    });
 
-    if (!employeeId || !email) {
-        const target = !employeeId ? idInput : emailInput;
-        const wrap = target.closest('.form-group-wrap');
-        target.classList.add('is-invalid');
-        const el = document.createElement('span');
-        el.className = 'field-error';
-        el.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Employee ID and email are required.';
-        wrap.appendChild(el);
-        return;
-    }
+    if (!employeeId) { showError(idInput, 'Employee ID is required.'); return; }
+    if (!password)   { showError(passInput, 'Password is required.'); return; }
 
-    const account = findAccount(employeeId, email);
+    const account = findAccountById(employeeId);
     if (!account) {
-        const wrap = emailInput.closest('.form-group-wrap');
-        emailInput.classList.add('is-invalid');
-        const el = document.createElement('span');
-        el.className = 'field-error';
-        el.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> No account matches that Employee ID and email.';
-        wrap.appendChild(el);
+        showError(idInput, 'No account found with that Employee ID.');
+        return;
+    }
+    if (account.passwordHash !== hashPassword(password)) {
+        showError(passInput, 'Incorrect password.');
         return;
     }
 
-    localStorage.setItem('userData', JSON.stringify(account));
+    const sessionData = {
+        firstName: account.firstName, lastName: account.lastName,
+        fullName: account.fullName, email: account.email, employeeId: account.employeeId
+    };
+    localStorage.setItem('userData', JSON.stringify(sessionData));
     localStorage.setItem('userFirstName', account.firstName);
     showSuccessOverlay(account.firstName, function () {
         window.location.href = "Dashoboard.html";
